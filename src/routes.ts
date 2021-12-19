@@ -3,7 +3,7 @@ import { CreateCategoryController } from './controllers/CreateCategoryController
 import { GetAllCategoriesController } from './controllers/GetAllCategoriesController';
 import { DeleteCategoryController } from './controllers/DeleteCategoryController';
 import { UpdateCategoryController } from './controllers/UpdateCategoryController';
-import { CreateVIdeosController } from './controllers/CreateVIdeosController';
+import { CreateVideosController } from './controllers/CreateVideosController';
 import { GetAllVideosController} from './controllers/GetAllVideosController';
 
 const routes = Router();
@@ -13,7 +13,7 @@ routes.get("/categories", new GetAllCategoriesController().handle);
 routes.put("/categories/:id", new UpdateCategoryController().handle);
 routes.delete("/categories/:id", new DeleteCategoryController().handle);
 
-routes.post("/videos", new CreateVIdeosController().handle);
+routes.post("/videos", new CreateVideosController().handle);
 routes.get("/videos", new GetAllVideosController().handle);
 
 export { routes };

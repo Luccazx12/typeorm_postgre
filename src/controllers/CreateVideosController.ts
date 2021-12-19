@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreateVideosService } from "../services/CreateVideoService";
 
-export class CreateVIdeosController {
+export class CreateVideosController {
   async handle(request: Request, response: Response) {
     const { name, description, duration, category_id } = request.body;
 
