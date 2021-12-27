@@ -1,12 +1,12 @@
-import { getRepository } from 'typeorm';
-import { Category } from '../entities/Category';
+import { getRepository } from "typeorm";
+import { Category } from "../entities/Category";
 
 export class GetAllCategoriesService {
-    async execute() {
-        const repo = getRepository(Category);
+  async execute() {
+    const repo = getRepository(Category);
 
-        const categories = await repo.find();
+    const categories = await repo.find();
 
-        return categories;
-    }
+    return categories;
+  }
 }

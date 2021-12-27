@@ -23,6 +23,10 @@ export class CreateVideosService {
       return new Error("Category does not exists!");
     }
 
+    if (await repo.findOne({ where: { name: name } })) {
+      return new Error("Video already exists!");
+    }
+
     const video = repo.create({ name, description, duration, category_id });
 
     await repo.save(video);
