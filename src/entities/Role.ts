@@ -1,22 +1,13 @@
 import { Entity, Column, CreateDateColumn, PrimaryColumn } from "typeorm";
 import { v4 as uuid } from "uuid";
 
-@Entity("categories")
-export class Category {
+@Entity("roles")
+export class Role {
   @PrimaryColumn()
   id: string;
 
   @Column()
   name: string;
-
-  @Column()
-  description: string;
-
-  @Column()
-  defaultPrice: number;
-
-  @Column({ default: true })
-  actived: boolean;
 
   @CreateDateColumn()
   created_at: Date;

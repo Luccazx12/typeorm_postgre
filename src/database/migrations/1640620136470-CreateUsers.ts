@@ -1,10 +1,10 @@
 import { MigrationInterface, QueryRunner, Table } from "typeorm";
 
-export class CreateVideos1639843007128 implements MigrationInterface {
+export class CreateUsers1640620136470 implements MigrationInterface {
   public async up(queryRunner: QueryRunner): Promise<void> {
     await queryRunner.createTable(
       new Table({
-        name: "videos",
+        name: "users",
         columns: [
           {
             name: "id",
@@ -14,32 +14,47 @@ export class CreateVideos1639843007128 implements MigrationInterface {
           {
             name: "name",
             type: "varchar",
+          },
+          {
+            name: "username",
+            type: "varchar",
             isUnique: true,
           },
           {
-            name: "description",
+            name: "password",
             type: "varchar",
           },
           {
-            name: "category_id",
-            type: "uuid",
+            name: "email",
+            type: "varchar",
+            isUnique: true,
           },
           {
-            name: "duration",
-            type: "numeric",
+            name: "actived",
+            type: "boolean",
+          },
+          {
+            name: "role_id",
+            type: "uuid",
           },
           {
             name: "created_at",
             type: "timestamp",
             default: "now()",
           },
+          {
+            name: "updated_at",
+            type: "timestamp",
+            default: "now()",
+          },
         ],
         foreignKeys: [
           {
-            name: "fk_videos_category",
-            columnNames: ["category_id"],
-            referencedTableName: "categories",
+            name: "fk_users_role",
+            columnNames: ["role_id"],
+            referencedTableName: "roles",
             referencedColumnNames: ["id"],
+            onDelete: "CASCADE",
           },
         ],
       })
@@ -47,6 +62,6 @@ export class CreateVideos1639843007128 implements MigrationInterface {
   }
 
   public async down(queryRunner: QueryRunner): Promise<void> {
-    await queryRunner.dropTable("videos");
+    await queryRunner.dropTable("users");
   }
 }
