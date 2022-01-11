@@ -30,9 +30,9 @@ export class User {
   //unique
 
   @Column({
-    length: 80,
+    length: 100,
   })
-  @Length(10, 80)
+  @Length(10, 100)
   @Exclude()
   password: string;
 
@@ -62,8 +62,8 @@ export class User {
 
   @BeforeInsert()
   async setPassword(password: string) {
-    const salt = await bcrypt.genSalt();
-    this.password = await bcrypt.hash(password || this.password, salt);
+    const salt = await bcrypt.genSaltSync();
+    this.password = await bcrypt.hashSync(password || this.password, salt);
   }
 
   constructor() {

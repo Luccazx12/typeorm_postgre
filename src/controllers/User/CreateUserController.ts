@@ -4,8 +4,14 @@ import { CreateUserService } from "../../services/User/CreateUserService";
 export class CreateUserController {
   async handle(request: Request, response: Response) {
     const { name, username, password, email, role_id } = request.body;
+    const { user } = request;
+
     try {
       const service = new CreateUserService();
+
+      if(user.admin === true){
+
+      }
 
       const result = await service.execute({
         name,

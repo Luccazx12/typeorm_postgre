@@ -31,9 +31,7 @@ export default class InsertRolesAndAdminUser implements Seeder {
         ])
         .execute();
 
-      const salt = await bcrypt.genSalt();
-      const password = await bcrypt.hash("admin", salt);
-
+      const password = await bcrypt.hashSync("1234", 10);
       await getRepository(User).save({
         id: uuid(),
         name: "Admin",

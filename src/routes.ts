@@ -9,6 +9,7 @@ import { CreateUserController } from "./controllers/User/CreateUserController";
 import { GetAllUsersController } from "./controllers/User/GetAllUsersController";
 import { GetAllRolesController } from "./controllers/User/GetAllRolesController";
 import { GetByUsernameController } from "./controllers/User/GetByUsernameController";
+import SigninController from "./controllers/Auth/SigninController";
 
 const routes = Router();
 
@@ -27,5 +28,8 @@ routes.post("/users", new CreateUserController().handle);
 routes.get("/users", new GetAllUsersController().handle);
 routes.get("/users/roles", new GetAllRolesController().handle);
 routes.get("/user/:username", new GetByUsernameController().handle);
+
+//Auth
+routes.post("/auth/signin", new SigninController().handle)
 
 export { routes };
