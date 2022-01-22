@@ -9,6 +9,7 @@ type UserRequest = {
   password: string;
   email: string;
   role_id: string;
+  admin: boolean;
 };
 
 export class CreateUserService {
@@ -18,12 +19,29 @@ export class CreateUserService {
     password,
     email,
     role_id,
+    admin,
   }: UserRequest): Promise<Error | User> {
     const userRepo = getRepository(User);
     const roleRepo = getRepository(Role);
 
-    if (!(await roleRepo.findOne(role_id))) {
-      return new Error("Role does not exists!");
+
+    if (!name || !username || !password || !email) {
+      return new Error("Missing information");
+    }
+    else if (admin){
+      if (!(await roleRepo.findOne(role_id))) {
+        return new Error("Role does not exists!");
+      }
+    }
+    else {
+      const userRole = await roleRepo.findOne({
+        where: {
+          name: "User"
+        }
+      });
+
+      role_id = userRole.id;
+      console.log("hmmm")
     }
 
     if (
@@ -31,10 +49,6 @@ export class CreateUserService {
       (await userRepo.findOne({ where: { email: email } }))
     ) {
       return new Error("User already exists!");
-    }
-
-    if (!name || !username || !password || !email || !role_id) {
-      return new Error("Missing information");
     }
 
     const date = await DateGmt(new Date());

@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { SigninService } from "../../services/Auth/SigninService";
 
-export default class SigninController {
+export class SigninController {
   async handle(request: Request, response: Response) {
     const { email, password } = request.body;
 
@@ -15,6 +15,7 @@ export default class SigninController {
 
       return response.status(200).json(result);
     } catch (error) {
+      console.log(error)
       return response.status(500).json(error);
     }
   }

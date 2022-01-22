@@ -9,27 +9,28 @@ import { CreateUserController } from "./controllers/User/CreateUserController";
 import { GetAllUsersController } from "./controllers/User/GetAllUsersController";
 import { GetAllRolesController } from "./controllers/User/GetAllRolesController";
 import { GetByUsernameController } from "./controllers/User/GetByUsernameController";
-import SigninController from "./controllers/Auth/SigninController";
+import { SigninController } from "./controllers/Auth/SigninController";
+import { Authentication } from "./middlewares/Auth";
 
 const routes = Router();
 
 //Categories
-routes.post("/categories", new CreateCategoryController().handle);
-routes.get("/categories", new GetAllCategoriesController().handle);
-routes.put("/categories/:id", new UpdateCategoryController().handle);
-routes.delete("/categories/:id", new DeleteCategoryController().handle);
+routes.post("/categories", new Authentication().ensureAuthentication, new CreateCategoryController().handle);
+routes.get("/categories", new Authentication().ensureAuthentication, new GetAllCategoriesController().handle);
+routes.put("/categories/:id", new Authentication().ensureAuthentication, new UpdateCategoryController().handle);
+routes.delete("/categories/:id", new Authentication().ensureAuthentication, new DeleteCategoryController().handle);
 
 //Products
-routes.post("/products", new CreateProductController().handle);
+routes.post("/products", new Authentication().ensureAuthentication, new CreateProductController().handle);
 routes.get("/products", new GetAllProductsController().handle);
 
 //Users
 routes.post("/users", new CreateUserController().handle);
-routes.get("/users", new GetAllUsersController().handle);
-routes.get("/users/roles", new GetAllRolesController().handle);
-routes.get("/user/:username", new GetByUsernameController().handle);
+routes.get("/users", new Authentication().ensureAuthentication, new GetAllUsersController().handle);
+routes.get("/users/roles", new Authentication().ensureAuthentication, new GetAllRolesController().handle);
+routes.get("/user/:username", new Authentication().ensureAuthentication, new GetByUsernameController().handle);
 
 //Auth
-routes.post("/auth/signin", new SigninController().handle)
+routes.post("/auth/signin", new SigninController().handle);
 
 export { routes };

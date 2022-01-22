@@ -1,16 +1,22 @@
 import { Request, Response } from "express";
 import { CreateUserService } from "../../services/User/CreateUserService";
-
+import { verify } from "jsonwebtoken";
+import config from "../../config/config";
 export class CreateUserController {
   async handle(request: Request, response: Response) {
     const { name, username, password, email, role_id } = request.body;
-    const { user } = request;
+    let admin = false;
 
     try {
       const service = new CreateUserService();
 
-      if(user.admin === true){
-
+      const authHeader = request.headers.authorization;
+      if (authHeader) {
+        const [_, token] = authHeader.split(" ");
+        const decoded = verify(token, config.keyJwt);
+        if (decoded.role === "Admin") {
+          admin = true;
+        }
       }
 
       const result = await service.execute({
@@ -19,6 +25,7 @@ export class CreateUserController {
         password,
         email,
         role_id,
+        admin,
       });
 
       if (result instanceof Error) {

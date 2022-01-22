@@ -2,6 +2,7 @@ import { getRepository } from "typeorm";
 import { User } from "../../entities/User";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
+import config from "../../config/config";
 
 export class SigninService {
   async execute(email: string, password: string) {
@@ -24,7 +25,7 @@ export class SigninService {
           email: user.email,
           role: user.role.name,
         },
-        "teste",
+        config.keyJwt,
         { expiresIn: 86400 }
       );
     }
