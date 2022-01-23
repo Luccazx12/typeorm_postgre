@@ -15,7 +15,7 @@ export class SigninController {
 
       return response.status(200).json(result);
     } catch (error) {
-      console.log(error)
+      console.log(error);
       return response.status(500).json(error);
     }
   }

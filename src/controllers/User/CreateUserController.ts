@@ -1,7 +1,7 @@
 import { Request, Response } from "express";
 import { CreateUserService } from "../../services/User/CreateUserService";
 import { verify } from "jsonwebtoken";
-import config from "../../config/config";
+import config from "../../config";
 export class CreateUserController {
   async handle(request: Request, response: Response) {
     const { name, username, password, email, role_id } = request.body;

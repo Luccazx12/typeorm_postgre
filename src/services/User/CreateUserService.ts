@@ -24,35 +24,31 @@ export class CreateUserService {
     const userRepo = getRepository(User);
     const roleRepo = getRepository(Role);
 
-
     if (!name || !username || !password || !email) {
       return new Error("Missing information");
-    }
-    else if (admin){
-      if (!(await roleRepo.findOne(role_id))) {
-        return new Error("Role does not exists!");
-      }
-    }
-    else {
+    } else if (!admin || !role_id) {
       const userRole = await roleRepo.findOne({
         where: {
-          name: "User"
-        }
+          name: "User",
+        },
       });
-
       role_id = userRole.id;
-      console.log("hmmm")
     }
 
-    if (
-      (await userRepo.findOne({ where: { username: username } })) ||
-      (await userRepo.findOne({ where: { email: email } }))
-    ) {
-      return new Error("User already exists!");
+    if (!(await roleRepo.findOne(role_id))) {
+      return new Error("Role does not exists!");
+    }
+
+    username = username.toLowerCase();
+    email = email.toLowerCase();
+
+    if (await userRepo.findOne({ where: { username: username } })) {
+      return new Error("Username already registred");
+    } else if (await userRepo.findOne({ where: { email: email } })) {
+      return new Error("Email already registred!");
     }
 
     const date = await DateGmt(new Date());
-
     const user = userRepo.create({
       name,
       username,

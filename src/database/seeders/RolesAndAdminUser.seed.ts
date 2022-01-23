@@ -35,7 +35,7 @@ export default class InsertRolesAndAdminUser implements Seeder {
       await getRepository(User).save({
         id: uuid(),
         name: "Admin",
-        username: "Admin",
+        username: "admin",
         password: password,
         email: "mario-lucca@hotmail.com",
         role_id: adminId,

@@ -2,11 +2,13 @@ import { getRepository } from "typeorm";
 import { User } from "../../entities/User";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
-import config from "../../config/config";
+import config from "../../config";
 
 export class SigninService {
   async execute(email: string, password: string) {
     const repo = getRepository(User);
+    email = email.toLowerCase();
+
     const user = await repo.findOne({
       where: { email: email },
       relations: ["role"],
@@ -22,6 +24,7 @@ export class SigninService {
       var token = jwt.sign(
         {
           id: user.id,
+          username: user.username,
           email: user.email,
           role: user.role.name,
         },
@@ -35,7 +38,7 @@ export class SigninService {
       username: user.username,
       email: user.email,
       role: user.role.name,
-      accessToken: token,
+      token: token,
     };
 
     return success;
