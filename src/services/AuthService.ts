@@ -1,8 +1,8 @@
 import { getRepository } from "typeorm";
-import { User } from "../../entities/User";
+import config from "../config";
+import { User } from "../entities/User";
 import * as bcrypt from "bcrypt";
 import * as jwt from "jsonwebtoken";
-import config from "../../config";
 
 export class SigninService {
   async execute(email: string, password: string) {

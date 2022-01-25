@@ -1,10 +1,11 @@
 import express from "express";
-import { SigninController } from "../controllers/Auth/SigninController";
-import { GetAllProductsController } from "../controllers/Product/GetAllProductsController";
-import { CreateUserController } from "../controllers/User/CreateUserController";
-import { GetAllCategoriesController } from "../controllers/Category/GetAllCategoriesController";
-import { GetByUsernameController } from "../controllers/User/GetByUsernameController"
-
+import { SigninController } from "../controllers/AuthController";
+import { GetAllProductsController } from "../controllers/ProductController";
+import {
+  CreateUserController,
+  GetByUsernameController,
+} from "../controllers/UserController";
+import { GetAllCategoriesController } from "../controllers/CategoryController";
 
 class Routes {
   public router: express.Application;

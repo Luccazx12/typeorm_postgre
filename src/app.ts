@@ -4,7 +4,7 @@ import swaggerUi from "swagger-ui-express";
 import routes from "./routes/routes";
 import authRoutes from "./routes/AuthRoutes";
 import fs = require("fs");
-import favicon from "serve-favicon"
+import favicon from "serve-favicon";
 
 class App {
   public express: express.Application;
@@ -45,10 +45,10 @@ class App {
 
     // handle undefined routes
     this.express.use("*", (req, res, next) => {
-        res.json({
-          message: "Make sure url is correct!",
-        });
+      res.json({
+        message: "Make sure url is correct!",
       });
+    });
   }
 
   private middleware(): void {
@@ -56,7 +56,7 @@ class App {
     this.express.use(express.json());
     this.express.use(express.urlencoded({ extended: false }));
     this.express.use(express.static("public"));
-    this.express.use(favicon(process.cwd() + '/public/images/favicon.ico'))
+    this.express.use(favicon(process.cwd() + "/public/images/favicon.ico"));
   }
 }
 

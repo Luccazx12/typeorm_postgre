@@ -1,15 +1,20 @@
 import express from "express";
-import { CreateCategoryController } from "../controllers/Category/CreateCategoryController";
-import { DeleteCategoryController } from "../controllers/Category/DeleteCategoryController";
-import { UpdateCategoryController } from "../controllers/Category/UpdateCategoryController";
-import { CreateProductController } from "../controllers/Product/CreateProductController";
-import { GetAllUsersController } from "../controllers/User/GetAllUsersController";
-import { GetAllRolesController } from "../controllers/User/GetAllRolesController";
-import { SearchByUsernameController } from "../controllers/User/SearchByUsernameController";
-import { CheckRoles } from "../middlewares/CheckRoles";
 import { Request, Response, NextFunction } from "express";
-import { verify } from "jsonwebtoken";
 import config from "../config";
+import {
+  CreateCategoryController,
+  UpdateCategoryController,
+  DeleteCategoryController,
+} from "../controllers/CategoryController";
+import {
+  GetAllUsersController,
+  GetAllRolesController,
+  SearchByUsernameController,
+} from "../controllers/UserController";
+import { CreateProductController } from "../controllers/ProductController";
+import { CheckRoles } from "../middlewares/CheckRoles";
+import { verify } from "jsonwebtoken";
+
 
 interface ITokenPayload {
   iat: number;

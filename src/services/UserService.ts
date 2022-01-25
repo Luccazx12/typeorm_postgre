@@ -1,7 +1,8 @@
 import { getRepository } from "typeorm";
-import { User } from "../../entities/User";
-import { Role } from "./../../entities/Role";
-import { DateGmt } from "../../utils/DateGmt-3";
+import { Like } from "typeorm";
+import { User } from "../entities/User";
+import { Role } from "../entities/Role";
+import { DateGmt } from "../utils/DateGmt-3";
 
 type UserRequest = {
   name: string;
@@ -62,5 +63,59 @@ export class CreateUserService {
 
     await userRepo.save(user);
     return user;
+  }
+}
+
+export class SearchByUsernameService {
+  async execute(username: string) {
+    const repo = await getRepository(User);
+    username = username.toLowerCase();
+    const user = await repo.find({
+      username: Like(`${username}%`),
+    });
+
+    if (!user) {
+      return new Error("User does not exists!");
+    }
+    
+    for(var i = 0; i < user.length; i++){
+      delete user[i].password;
+    }
+    
+    return user;
+  }
+}
+
+export class GetByUsernameService {
+  async execute(username: string) {
+    const repo = await getRepository(User);
+    username = username.toLowerCase();
+    const user = await repo.findOne({
+      where: {
+        username: username
+      }
+    });
+
+    if (!user) {
+      return new Error("User does not exists!");
+    }
+    delete user.password; delete user.email;
+    return user;
+  }
+}
+
+export class GetAllUsersService {
+  async execute() {
+    const repo = await getRepository(User);
+    const users = repo.find();
+    return users;
+  }
+}
+
+export class GetAllRolesService {
+  async execute() {
+    const repo = await getRepository(Role);
+    const roles = repo.find();
+    return roles;
   }
 }

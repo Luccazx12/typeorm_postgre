@@ -1,5 +1,5 @@
 import { Request, Response, NextFunction } from "express";
-import { GetAllRolesService } from "../services/User/GetAllRolesService";
+import { GetAllRolesService } from "../services/UserService";
 
 export class CheckRoles {
   async isAdmin(request: Request, response: Response, next: NextFunction) {
