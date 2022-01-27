@@ -1,0 +1,43 @@
+body {
+    background-color: #e0e0e0
+}
+
+.swagger-ui .topbar {
+    background-color: rgb(65, 26, 238);
+}
+
+.swagger-ui .info .base-url {
+    font-size: 25px;
+}
+
+.swagger-ui .markdown p {
+    font-size: 20px;
+}
+
+.swagger-ui .btn.execute {
+    background-color: green;
+}
+
+.swagger-ui button {
+    background: orange;
+}
+
+.swagger-ui .scheme-container {
+    background-color: rgb(238, 176, 61);
+}
+
+#operations-tag-Authenticated_Routes, #operations-tag-Open_Routes{
+    border-bottom: 3px black ridge;
+    font-size: 30px !important;
+    margin-left: -30px;
+}
+
+#operations-tag-Authenticated_Routes .expand-operation, 
+#operations-tag-Authenticated_Routes .expand-operation, 
+#operations-tag-Open_Routes .expand-operation {
+    visibility: hidden;
+}
+
+#operations-tag-Open_Routes{
+    margin-top: 45px;
+}
